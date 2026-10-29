@@ -1,0 +1,53 @@
+# Sobe só este serviço, com banco e RabbitMQ próprios.
+# Para o fluxo completo (Cadastro → Proposta → Cartão), use o docker-compose.fluxo-completo.yml
+# do repositório cadastro-clientes-service.
+services:
+  cartao-api:
+    build: .
+    container_name: cartao-api
+    environment:
+      # Development habilita o Swagger e a aplicação automática das migrations
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__CartaoDb: "Host=cartao-postgres;Port=5432;Database=cartao;Username=postgres;Password=postgres"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+    ports:
+      - "8083:8080"
+    depends_on:
+      cartao-postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  cartao-postgres:
+    image: postgres:17-alpine
+    container_name: cartao-postgres
+    environment:
+      POSTGRES_DB: cartao
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - cartao-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cartao"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:4.1-management-alpine
+    container_name: cartao-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  cartao-pgdata:
