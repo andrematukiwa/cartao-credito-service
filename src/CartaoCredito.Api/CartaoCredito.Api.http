@@ -1,0 +1,8 @@
+@baseUrl = http://localhost:5140/api/v1/cartoes
+
+### Listar os cartões de um cliente (use o id devolvido pelo cadastro)
+@clienteId = 00000000-0000-0000-0000-000000000000
+GET {{baseUrl}}/{{clienteId}}
+
+### Health check (Postgres + RabbitMQ)
+GET http://localhost:5140/health

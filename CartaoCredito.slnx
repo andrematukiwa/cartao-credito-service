@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CartaoCredito.Api/CartaoCredito.Api.csproj" />
+    <Project Path="src/CartaoCredito.Application/CartaoCredito.Application.csproj" />
+    <Project Path="src/CartaoCredito.Domain/CartaoCredito.Domain.csproj" />
+    <Project Path="src/CartaoCredito.Infrastructure/CartaoCredito.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CartaoCredito.UnitTests/CartaoCredito.UnitTests.csproj" />
+  </Folder>
+</Solution>
