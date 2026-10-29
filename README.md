@@ -6,6 +6,10 @@ Microsserviço que **consome o evento `PropostaGerada`** e **emite os cartões d
 Cadastro de Clientes ──ClienteCadastrado──▶ Proposta de Crédito ──PropostaGerada──▶ Cartão de Crédito
 ```
 
+![Arquitetura da solução](docs/arquitetura.png)
+
+O [fluxo detalhado](docs/fluxo-detalhado.png) mostra as decisões de cada serviço: validações, idempotência, retry e DLQ. Para editar os diagramas, abra a fonte no draw.io: [docs/fluxograma.drawio](docs/fluxograma.drawio).
+
 ## Stack
 
 | | |
