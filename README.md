@@ -60,6 +60,8 @@ dotnet run --project src/CartaoCredito.Api
 dotnet test
 ```
 
+Os testes de unidade cobrem a emissão (1 ou 2 cartões, limite por cartão, validade, número mascarado), a proposta negada, a idempotência e cada tipo de mensagem inválida que vai direto para a DLQ. Repositório, unit of work e gerador de número são substituídos por mocks (NSubstitute), e o relógio por `FakeTimeProvider`.
+
 ## Endpoint
 
 | Método | Rota | Descrição | Respostas |
